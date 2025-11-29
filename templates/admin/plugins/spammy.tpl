@@ -5,7 +5,7 @@
 		<div id="spy-container" class="col-12 col-md-8 px-0 mb-4" tabindex="0">
 			<form role="form" class="spammy-settings">
 				<div class="mb-4">
-					<h5 class="fw-bold tracking-tight settings-header">Spam Prevention Rules</h5>
+					<h5 class="fw-bold tracking-tight settings-header">Spammy Rules</h5>
 
 					<p class="lead">
 						Configure email patterns to block spam registrations.
