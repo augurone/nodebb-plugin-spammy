@@ -1,0 +1,48 @@
+{
+  "name": "nodebb-plugin-spammy",
+  "version": "0.1.0",
+  "description": "NodeBB spam prevention plugin that blocks registrations where username matches email local-part and provides configurable pattern-based email filtering",
+  "main": "library.js",
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/augurone/nodebb-plugin-spammy.git"
+  },
+  "bugs": {
+    "url": "https://github.com/augurone/nodebb-plugin-spammy/issues"
+  },
+  "homepage": "https://github.com/augurone/nodebb-plugin-spammy#readme",
+  "keywords": [
+    "nodebb",
+    "plugin", 
+    "spam",
+    "prevention",
+    "registration",
+    "security",
+    "email",
+    "filtering",
+    "gmail",
+    "patterns",
+    "regex",
+    "wildcard"
+  ],
+  "author": "augurone",
+  "license": "MIT",
+  "engines": {
+    "node": ">=16.0.0"
+  },
+  "peerDependencies": {
+    "nodebb": ">=3.0.0"
+  },
+  "nbbpm": {
+    "compatibility": "^3.0.0"
+  },
+  "files": [
+    "library.js",
+    "plugin.json",
+    "routes/",
+    "public/",
+    "templates/",
+    "README.md",
+    "LICENSE"
+  ]
+}

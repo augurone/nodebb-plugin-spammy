@@ -1,0 +1,16 @@
+{
+  "id": "nodebb-plugin-spammy",
+  "name": "Spammy - Spam Prevention",
+  "description": "Blocks spam registrations based on common spam patterns and configurable pattern-based email filtering",
+  "url": "https://github.com/augurone/nodebb-plugin-spammy",
+  "library": "./library.js",
+  "hooks": [
+    { "hook": "static:app.load", "method": "init" },
+    { "hook": "filter:user.create", "method": "checkRegistration" },
+    { "hook": "filter:admin.header.build", "method": "addAdminNavigation" }
+  ],
+  "modules": {
+    "../admin/plugins/spammy.js": "./public/lib/admin.js"
+  },
+  "compatibility": "^3.0.0"
+}
