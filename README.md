@@ -5,7 +5,7 @@ A robust NodeBB plugin that blocks spam registrations using intelligent username
 ## Current Status ✅
 
 **Working Features:**
-- ✅ **Gmail Username Blocking**: Specifically blocks Gmail registrations where username exactly matches email local-part (e.g., "teim0093" + "teim0093@gmail.com")
+- ✅ **Prevents base case for known forum spam patterns from creating accoungs**
 - ✅ **Pattern-Based Email Blocking**: Supports exact matches, wildcards, and regex patterns
 - ✅ **Admin Interface**: Easy-to-use configuration panel at `/admin/plugins/spammy`
 - ✅ **Comprehensive Logging**: All blocking events logged for monitoring
