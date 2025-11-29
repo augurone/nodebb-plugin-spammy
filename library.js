@@ -38,10 +38,13 @@ plugin.checkRegistration = async (data) => {
 	}
 	
 	// Get configured domains for username checking
-	const settings = await meta.settings.get('spammy');
-	const configuredDomains = settings && settings.domains 
-		? settings.domains.split('\n').map(domain => domain.trim()).filter(val => val.length > 0)
-		: ['gmail.com']; // default to gmail.com if not configured
+	const {
+        domains = '',
+        patterns: patternsStrg = ''
+    } = await meta.settings.get('spammy') || {};
+	const configuredDomains = domains 
+		? domains.split('\n').map(domain => domain.trim()).filter(val => val.length) 
+        : []
 	
 	// Check if username matches email local-part for configured domains
 	const [localPart = '', domain = ''] = email.split('@');
@@ -57,11 +60,11 @@ plugin.checkRegistration = async (data) => {
 	winston.info('[plugin/spammy] Username check passed');
 	
 	// Check email patterns
-	if (!settings || !settings.patterns) {
+	if (!patternsStrg) {
 		return data;
 	}
 	
-	const patterns = settings.patterns
+	const patterns = patternsStrg
 		.split('\n')
 		.map(pattern => pattern.trim())
 		.filter(val => val.length);
@@ -69,7 +72,7 @@ plugin.checkRegistration = async (data) => {
 	// Check each pattern
 	for (const pattern of patterns) {
 		if (matchesPattern(email, pattern)) {
-			winston.warn(`[plugin/spammy] BLOCKED registration: email matches invalid pattern)`);
+			winston.warn(`[plugin/spammy] BLOCKED registration: email matches invalid pattern`);
 
 			throw new Error('Email address is not allowed');
 		}

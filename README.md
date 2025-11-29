@@ -5,7 +5,8 @@ A NodeBB plugin that blocks spam registrations using configurable username/email
 ## Features
 
 ### 1. **Username/Email Blocking**
-- Blocks registrations where username matches email address for configurable domains (defaults to Gmail)
+- Blocks registrations where username matches email address for configurable domains
+- Example: Blocks username `john123` with email `john123@gmail.com`
 
 ### 2. **Email Pattern Blocking** 
 Configure patterns to block via admin panel:
