@@ -37,33 +37,40 @@ plugin.checkRegistration = async (data) => {
 		return data;
 	}
 	
-	// Check if username matches email local-part (case-insensitive)
-	const [localPart, domain] = email.split('@');
+	// Get configured domains for username checking
+	const settings = await meta.settings.get('spammy');
+	const configuredDomains = settings && settings.domains 
+		? settings.domains.split('\n').map(domain => domain.trim()).filter(val => val.length > 0)
+		: ['gmail.com']; // default to gmail.com if not configured
 	
-	winston.info(`[plugin/spammy] Comparing username="${username}" with email local-part="${localPart}"`);
+	// Check if username matches email local-part for configured domains
+	const [localPart = '', domain = ''] = email.split('@');
 	
-	if (username === localPart && domain === 'gmail.com') {
-		winston.warn(`[plugin/spammy] BLOCKED registration: username "${username}" matches email local-part "${localPart}"`);
-		throw new Error('Your username cannot be the same as your email address. Please choose a different username.');
+	winston.info(`[plugin/spammy] Comparing username="${username}" with email local-part="${localPart}" for domain="${domain}"`);
+	
+	if (username === localPart && configuredDomains.includes(domain)) {
+		winston.warn(`[plugin/spammy] BLOCKED registration: username "${username}" matches email local-part "${localPart}" for domain "${domain}"`);
+		
+        throw new Error('Please choose a different username.');
 	}
 	
 	winston.info('[plugin/spammy] Username check passed');
 	
-	// Get configured patterns from settings
-	const settings = await meta.settings.get('spammy');
+	// Check email patterns
 	if (!settings || !settings.patterns) {
 		return data;
 	}
 	
 	const patterns = settings.patterns
 		.split('\n')
-		.map(p => p.trim())
-		.filter(p => p.length > 0);
+		.map(pattern => pattern.trim())
+		.filter(val => val.length);
 	
 	// Check each pattern
 	for (const pattern of patterns) {
 		if (matchesPattern(email, pattern)) {
-			winston.warn(`[plugin/spammy] BLOCKED registration: ${email} (matched pattern: ${pattern})`);
+			winston.warn(`[plugin/spammy] BLOCKED registration: email matches invalid pattern)`);
+
 			throw new Error('Email address is not allowed');
 		}
 	}
@@ -86,6 +93,7 @@ function matchesPattern(email, pattern) {
 				return regex.test(email);
 			} catch (e) {
 				winston.error(`[plugin/spammy] Invalid regex pattern: ${pattern}`, e);
+                
 				return false;
 			}
 		}

@@ -31,7 +31,22 @@
 							placeholder="*@spam-domain.com&#10;/^[a-z]{4}[0-9]{4}@.*$/i&#10;baduser@example.com"
 						></textarea>
 						<div class="form-text">
-							The plugin also automatically blocks registrations where the username matches the email's local-part (e.g., username "john123" with email "john123@example.com").
+							Block emails matching these patterns.
+						</div>
+					</div>
+
+					<div class="mb-3">
+						<label class="form-label" for="domains">Username=Email Domains (one per line)</label>
+						<textarea 
+							id="domains" 
+							name="domains" 
+							data-field="domains"
+							class="form-control" 
+							rows="5" 
+							placeholder="gmail.com&#10;yahoo.com&#10;hotmail.com"
+						></textarea>
+						<div class="form-text">
+							For these domains, block registrations where username matches email local-part (e.g., username "john123" with email "john123@gmail.com").
 						</div>
 					</div>
 				</div>
