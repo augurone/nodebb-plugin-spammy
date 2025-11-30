@@ -1,6 +1,6 @@
 {
   "name": "nodebb-plugin-spammy",
-  "version": "0.1.0",
+  "version": "0.1.1",
   "description": "NodeBB spam prevention plugin that blocks registrations where username matches email local-part and provides configurable pattern-based email filtering",
   "main": "library.js",
   "repository": {
